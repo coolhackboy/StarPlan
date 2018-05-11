@@ -1,0 +1,235 @@
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport"
+		        content="width=device-width, initial-scale=1.0, user-scalable=1.0, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="format-detection" content="telephone=no"/>
+		<meta http-equiv="expires" content="-1"/>
+		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="cache-control" content="no-cache"/>
+		<title>我的互助</title>
+<script type="text/javascript">
+var project = {
+		ctxPath:"/xhyhz",
+		staticPath:"/xhyhz/static",
+}
+</script> 
+<script type="text/javascript" src="./js/jquery-2.1.4.js" ></script>
+
+		<link rel="stylesheet" href="./css/weui.css" />
+		<link rel="stylesheet" href="./css/example.css" />
+		<link rel="stylesheet" href="./css/xhyhz.css" />
+		<!--<link rel="stylesheet" href="../css/iscroll.min.css" />-->
+		<style>
+			#myHuzhu {position:absolute;top:60px; bottom:48px;left:0;width:100%}  
+			#project_info {position:absolute;top:60px; bottom:48px;left:0;width:100%}
+			/*#scroller li {padding:0 10px;height:60px;line-height:60px;background:#ecf6ff;margin-top:10px}  */
+			/*#pullDown, #pullUp {padding:0 10px;height:30px;line-height:30px;color:#888;text-align:center}  */
+		</style>
+		<script type="text/javascript" src="./js/jquery-2.1.4.js" ></script>
+	</head>
+	<body style="background-color: #ECECEC;">
+		
+		<!--navbar-->
+		<div class="weui-tab">
+            <div class="weui-navbar">
+                <div class="weui-navbar__item weui-bar__item_on fz_16_px">
+                    我的资助
+                </div>
+              <!--  <div class="weui-navbar__item fz_16_px">
+                    申请帮助
+                </div>-->
+            </div>
+            <div class="weui-tab__panel">
+            </div>
+        </div>
+      
+        <!--参与信息-->
+        <div id="myHuzhu">
+        	<div id="">
+        		<div id="myHuzhupullDown">  
+		            <span class="pullDownLabel" style="display:none">下拉刷新</span>  
+		        </div>  
+	        	<div class="myhuzhu_list clear">
+						<div class="left left_detail_info">
+								<p>手机号：<i class="phone">-</i></p>
+							</div>
+		            <div class="left left_detail_info">
+		            	<p>我的余额：<i class='balance'>100</i></p>
+		            </div>
+		            <div class="left right_detail_info">
+		            	<p>区块链费用：0.0000002NAS</p>
+					</div>
+				 </div>
+				 
+				 <div id='project_title' class="project_title">
+						<div class="left">剩余NAS</div>
+						<div class="left">状态</div>
+						<div class="left">时间</div>
+				</div>
+				<div id='attendDiv'>
+					<!-- <ul class="clear project_bd">
+						<li class="clear">
+							<div class="left">136****4464</div>
+							<div class="left">10HZB</div>
+							<div class="left">已捐助</div>	
+						</li>
+				</ul> -->
+
+				</div>
+			
+			     <ul id ="myHuzhuList" class="hide">
+			     	<li class="myhuzhu_list clear">
+				     	
+				     
+				     	
+				     		<div class="weui-msg">
+						        <div class="weui-msg__icon-area">
+						        	<!--<i class="weui-icon-success weui-icon_msg"></i>-->
+						        	<img src="./static/img/shengqin.png" class="apply_icon"/>
+						        </div>
+						        <div class="weui-msg__text-area">
+						            <h2 class="weui-msg__title">没有找到互助项目</h2>
+						            <p class="weui-msg__desc">您还没有加入任何互助项目，请先选择并加入一个互助项目</p>
+						        </div>
+						        <div class="weui-msg__opr-area">
+						            <p class="weui-btn-area">
+						                <a href="/xhyhz/main.do" class="weui-btn weui-btn_primary bc_05e8d7">加入互助计划</a>
+						            </p>
+						        </div>
+						    </div>
+				      </li>
+				     </ul>
+			     </div>
+        </div>
+        
+        <!--申请帮助-->
+        <div id="project_info" style="display: none;">
+        	
+        		
+        			<div class="weui-msg">
+				        <div class="weui-msg__icon-area">
+				        	<!--<i class="weui-icon-success weui-icon_msg"></i>-->
+				        	<img src="./static/img/shengqin.png" class="apply_icon"/>
+				        </div>
+				        <div class="weui-msg__text-area">
+				            <h2 class="weui-msg__title">没有找到互助项目</h2>
+				            <p class="weui-msg__desc">您还没有加入任何互助项目，请先选择并加入一个互助项目</p>
+				        </div>
+				        <div class="weui-msg__opr-area">
+				            <p class="weui-btn-area">
+				                <a href="/xhyhz/main.do" class="weui-btn weui-btn_primary bc_05e8d7">加入互助计划</a>
+				            </p>
+				        </div>
+				    </div>
+        </div>
+        
+        <div id="myHuzhupullUp">
+             <span class="pullUpIcon"></span>
+              <span class="pullUpLabel" style="display:none">上拉刷新 </span>
+        </div>
+        
+        <!--显示dialog-->
+        <div class="js_dialog" id="msgInfo" style="display: none;">
+            <div class="weui-mask"></div>
+            <div class="weui-dialog">
+                <div class="weui-dialog__bd" id="errorInfo"></div>
+                <div class="weui-dialog__ft">
+                    <a href="javascript:void(0)" onclick="colseMcg()" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+                </div>
+            </div>
+        </div>
+        
+        <!--tabbar上面的距离
+        <div style="height: 70px;">&nbsp;</div>
+        -->
+        
+        <!--tabbar-->
+         <div class="weui-tabbar">
+            <a href="./index.html" class="weui-tabbar__item weui-bar__item_on">
+                <span style="display: inline-block;position: relative;">
+                    <img src="./static/img/home_off.png" alt="" class="weui-tabbar__icon">
+                </span>
+                <p class="weui-tabbar__label">Star</p>
+            </a>
+            
+            <a href="./myhelp.html" class="weui-tabbar__item">
+                <img src="./static/img/publicity_on.png" alt="" class="weui-tabbar__icon">
+                <p class="weui-tabbar__label">My Help</p>
+            </a>
+            <a href="./announce.html" class="weui-tabbar__item weui-bar__item_on">
+                <span style="display: inline-block;position: relative;">
+                    <img src="./static/img/apply_off.png" alt="" class="weui-tabbar__icon">
+                </span>
+                <p class="weui-tabbar__label">Announce</p>
+            </a>
+        </div>
+		
+		<script type="text/javascript" src="./js/jquerysession.js"></script>
+		<script src="./js/nebulas.js"></script>
+		<script src="./js/nebPay.js"></script>
+		<script>
+			var contractAddress = 'n1oLMWgkoznwPgS3wD9VGFoy4CQmtJwWTLs'
+
+			var HttpRequest = require("nebulas").HttpRequest;
+			var Neb = require("nebulas").Neb;
+			var NebPay = require("nebpay");     //https://github.com/nebulasio/nebPay
+			var nebPay = new NebPay();
+			var neb = new Neb();
+			neb.setRequest(new HttpRequest("https://mainnet.nebulas.io"));
+			var txhash ,phone;
+			
+			$(function(){
+				phone = getSession();
+				if(phone){
+					$('.phone').text(phone)
+					search(phone);
+				}else{
+					$("#myHuzhuList").removeClass("hide")
+				}
+			})
+
+			function search(phone){
+				var to = contractAddress;
+				var value = "0";
+				var callFunction = "getAccountByPhone";
+				var callArgs = "[\"" + phone + "\"]";
+				nebPay.simulateCall(to, value, callFunction, callArgs, {    //使用nebpay的simulateCall接口去执行get查询, 模拟执行.不发送交易,不上链
+					listener: cbSearch      //指定回调函数
+				});
+			}
+
+			function getSession(){
+				return $.session.get('phone');
+				// return "13650459783";
+			}
+
+			//return of search,
+			function cbSearch(resp) {
+				var attendList = formatData(resp.result);
+				attendList = JSON.parse(attendList)
+				for(var i = 0;i<attendList.length;i++){
+					var html = "<ul class=\"clear project_bd\">";
+					html +="<li class=\"clear\">";
+						html +="<div class=\"left\">"+attendList[i].balance+"NAS</div>";
+						html +="<div class=\"left\">"+attendList[i].activityName+"</div>";
+						html +="<div class=\"left\">"+attendList[i].attendTime+"</div>";
+						html +="</li>";
+					html +="</ul>";
+					$("#attendDiv").append(html)	
+				}
+			}
+
+			function formatData(result){
+				var list = result.split("null,")[1];
+				list = list.substring(0, list.length - 1);  
+				list = list.replace(/[\\]/g,'');//去掉字符串所有的反斜线
+				list = "["+list+"]";
+				return list;
+			}
+		</script>
+	</body>
+</html>

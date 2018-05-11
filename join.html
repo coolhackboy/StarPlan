@@ -1,0 +1,144 @@
+
+
+<html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport"
+                    content="width=device-width, initial-scale=1.0, user-scalable=1.0, minimum-scale=1.0, maximum-scale=1.0">
+            <meta name="format-detection" content="telephone=no"/>
+            <meta http-equiv="expires" content="-1"/>
+            <meta http-equiv="pragma" content="no-cache"/>
+            <meta http-equiv="cache-control" content="no-cache"/>
+            <title>加入爱心互助计划</title>
+    <script type="text/javascript">
+    var project = {
+            ctxPath:"/xhyhz",
+            staticPath:"/xhyhz/static",
+    }
+    </script> 
+    <script type="text/javascript" src="./js/jquery-2.1.4.js" ></script>
+    
+            <link rel="stylesheet" href="./css/weui.css" />
+            <link rel="stylesheet" href="./css/example.css" />
+            <link rel="stylesheet" href="./css/xhyhz.css" />
+        </head>
+        <body style="background-color: #ECECEC;">
+            <div class="padding_20">
+                
+                <div class="weui-cell_zll">
+                    <p class="fz_20_px">捐赠人信息</p>
+                </div>
+            
+                <div class="address_info">
+                    <p class="fz_12_px">地址：n1f1SNprNPQaJkLsD3WahU4mmSSSZo...</p>
+                    <p class="fz_12_px">手机号：1</p>
+                    <p class="fz_16_px">余额：<i>100NAS</i></p>
+                    <div class="weui-cell bc_ffffff fz_16_px">
+                        <div class="weui-cell__hd"><label class="weui-label">众筹金额（NAS）</label></div>
+                        <div class="weui-cell__bd">
+                            <input class="weui-input" type="text" id="balance" name="balance" pattern="[0-9]*" value="10" readonly="readonly" placeholder="请输入投保金额"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="padding_20">
+                <div class="weui-cell_zll">
+                    <p class="fz_20_px">星云链</p>
+                </div>
+                <div class="address_info">
+                    <p class="fz_12_px">星云链是致力于构建可持续升级良性生态的下一代公链。
+                            独创的区块链价值发现体系、前瞻性的激励和共识机制、避免硬分叉的自进化能力</p>
+                    <p class="fz_12_px">合约地址：n1f1SNprNPQaJkXKm3PLsD3WahU4mmSSSZo</p>
+                    <p class="fz_12_px">合约描述：个人众筹计划上链，你的众筹信息将永久存在区块链上</p>
+                    <div class="weui-cells">
+                        <div class="weui-cell__bd">
+                            <a href="javascript:void(0);" id="attend" class="weui-btn zll_addPlan">确认捐赠</a>
+                            <a href="javascript:void(0);" id="allAttend" class="weui-btn zll_addPlan2">查看所有捐赠</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <script type="text/javascript" src="./js/confirm.js"></script>
+            <script type="text/javascript" src="./js/jquerysession.js"></script>
+            <script src="./js/nebulas.js"></script>
+            <script src="./js/nebPay.js"></script>
+            
+        </body>
+        <script>
+
+                if(typeof(webExtensionWallet) === "undefined"){
+                        $("#noExtension").removeClass("hide")
+                    }else{
+                        $("#search_value").attr("disabled",false)
+                        $("#search").attr("disabled",false)
+                    }
+
+                var contractAddress = 'n1oLMWgkoznwPgS3wD9VGFoy4CQmtJwWTLs'
+
+                var HttpRequest = require("nebulas").HttpRequest;
+                var Neb = require("nebulas").Neb;
+                var NebPay = require("nebpay");     //https://github.com/nebulasio/nebPay
+                var nebPay = new NebPay();
+                var neb = new Neb();
+                // neb.setRequest(new HttpRequest("https://testnet.nebulas.io"));
+                neb.setRequest(new HttpRequest("https://mainnet.nebulas.io"));
+                var txhash ;
+
+                $("#attend").click(function(){
+                  var phone = getSession();
+                  if(phone){
+                  }else{
+                    phone='13650459783'
+                  }
+                  var acticityName = "星云激励计划第一季";
+                  var attendTime = getNowFormatDate();
+
+                  var to = contractAddress;
+                  var value = "0";
+                  var callFunction = "addStarPlan"
+                  var defaultV = 10;
+                  var callArgs = "[\"" + phone + "\",\"" + acticityName + "\",\"" + attendTime+ "\"]"
+                  nebPay.call(to, value, callFunction, callArgs, {    //使用nebpay的call接口去调用合约,
+                      listener: cbPush
+                  });
+                })
+
+                function getSession(){
+                    return $.session.get('phone');
+			    }
+
+                function cbPush(resp) {
+                // window.location.href='./myhelp.html'
+                    console.log("response of push: " + resp)
+                    // document.getElementById("txContent").value = JSON.stringify(resp)
+                //   neb.api.getTransactionReceipt(txhash, function (err, resp2) {
+                //         document.getElementById('txContent').value = JSON.stringify(resp2);
+                //     });
+                }
+
+                $("#allAttend").click(function(){
+                    location.href="./myhelp.html"
+                })
+
+                function getNowFormatDate() {
+                    var date = new Date();
+                    var seperator1 = "-";
+                    var seperator2 = ":";
+                    var month = date.getMonth() + 1;
+                    var strDate = date.getDate();
+                    if (month >= 1 && month <= 9) {
+                        month = "0" + month;
+                    }
+                    if (strDate >= 0 && strDate <= 9) {
+                        strDate = "0" + strDate;
+                    }
+                    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                            + " " + date.getHours() + seperator2 + date.getMinutes()
+                            + seperator2 + date.getSeconds();
+                    return currentdate;
+                }
+          </script>
+    </html>
